@@ -1,34 +1,5 @@
 # NinjaFlix
 
-## Vurderingskriterier
-
-- [x] Satt personlige læringsmål
-- [ ] Planlagt prosjektet
-- [ ] Dokumentert hvordan du jobbet med prosjektet
-- [x] Brukt passende verktøy
-- [x] Forklart valg av verktøy
-- [ ] Brukt tilbakemeldinger for å forbedre arbeidet
-- [ ] Gjennomført brukertesting
-- [ ] Rapportert brukertesting
-- [ ] Bruker farger, grafikk og fotografi på en god måte
-- [x] Bruker Internett og AI
-
-### Funksjonelle krav
-
-- [x] Passet på filstørrelser
-- [x] Valgt riktige filformater
-- [ ] Brukt nettverk for å gjøre prosjektet tilgjengelig
-- [ ] Ryddig og kommentert kode
-- [ ] Universell utforming (WCAG2 og UU tilsynet)
-- [ ] Bruker animasjoner
-- [x] Bruker fonter
-
-### Ikke funksjonelle krav
-
-- [ ] Fokusert på brukervennlighet
-- [x] Tilpasset målgruppen og budskapet
-- [ ] Fulgt lover og regler, tenkt på hva som er rett og galt
-
 ## Læringsmål
 
 Mine læringsmål for dette prosjektet er:
@@ -110,24 +81,30 @@ Alle brukerne klarte fint å bruke appen, ingen trengte hjelp, men noen brukte l
 ## Backend 
 Jeg ville fokusere på frontend kodingen og designet og trengte hjelp til backend. Jeg fikk hjelp hjemme til å lage en prototype for en tenkt backend, denne koden finnes i `common.js`. Vi lastet ned en del filmer fra YouTube, lagde thumbnails av dem og lagret dem i skyen. 
 
-TODO: Make heart function work
-TODO: Make fature work 
 TODO: Søk funksjon funker ikke 
 
 
 ## Nettverk
-Jeg brukte GitHub som kildekontroll gjennom hele prosjektet. [Prosjektet kan ses her.](https://github.com/chrfrenning/ninjaflix-frontend)
 
-Jeg fikk hjelp til å publisere nettstedet på Azure websites. [Prosjektet kan testes her.](https://ninjaflix.no/) Vi kjøpte også domene Ninjaflix.no på Domeneshop. 
+![Koden i GitHub](github.png)
+
+Jeg brukte GitHub som kildekontroll gjennom hele prosjektet. [Prosjektet kan ses her.](https://github.com/lolrandomthings/ninjaflix-frontend)
+
+![Azure](azure.png)
+
+Jeg fikk hjelp til å publisere nettstedet på Azure websites. [Prosjektet kan testes her.](https://white-river-006cdb910.5.azurestaticapps.net) Vi kjøpte også domene Ninjaflix.no på Domeneshop. 
+
+Når jeg gjør endringer i koden og pusher til GitHub så oppdateres nettstedet automatiskt på grunn av GitHub actions.
 
 TODO: publisere på skolens nettverk.
-
 TODO: Flytte ninjaflix.no pekeren til min egen Azure
 
 
 
 ## Verktøy
+
 Jeg har laget en oversikt over verktøyene jeg har brukt, og en kort beskrivelse av hva jeg har brukt dem til og hvorfor.
+
 | Product | Description |
 |---------|-------------|
 | Figma  | Laget interaktiv prototype av produktet, tidlig brukertesting med figma sin mobil app. |
@@ -144,12 +121,114 @@ Jeg har laget en oversikt over verktøyene jeg har brukt, og en kort beskrivelse
 
 
 
+## Koden
+
+Appen består av to sider. Index.html er hjemmesiden og watch.html lar brukeren se en film. Begge sidene har felles stylesheet, og bruker components.js for å få samme header fra header fra header.html. 
+
+HTML filene har egentlig ikke noe innhold, bare placeholdere som fylles med filmer fra database.json. Denne funksjonen finnes i common.js. Jeg fikk hjelp til å utvikle denne filen som inneholder funksjoner for å hente database.json med fetch funksjonen og filtrere den for de forskjellige listene. Det er også funksjoner som registrerer likes, dislikes, favorites og watch later. Dette lagres i browserens local storage.
+
+Hver side kaller init for å laste videone. Init blir kalt når browseren sender DOMContentLoaded eventet. Da kalles funksjoner som legger innhold inn i placeholderne.
+
+```javascript
+addVideosToScrollContainer = function(videos, list) {
+  list.innerHTML = '';
+
+  for (var i = 0; i < videos.length; i++) {
+    var video = videos[i];
+
+    var videoItem = document.createElement('li');
+    videoItem.style.backgroundImage = `url(${baseUrl}thumbnails/${video.id}.jpg)`;
+    videoItem.onclick = (function(video) {
+      return function() {
+        window.location.href = 'watch.html?id=' + video.id;
+      };
+    })(video);
+
+    var videoTitle = document.createElement('span');
+    videoTitle.innerText = video.title;
+    videoItem.append(videoTitle);
+
+    list.append(videoItem);
+  }}
+```
+
+Det finnes flere like funksjoner. De bruker document.createElement for å lage nytt innhold som legges i placeholderne med item.append. Placeholderne finner jeg med document.getElementById. 
+
+Slik ser koden i index.html ut når den lastes og før javaskriptene kjøres:
+
+```html
+<body>
+  <header id="header-placeholder"></header>
+
+  ...
+    
+    <h2>New films and series</h2>
+  <ul id="new-scroller" class="scroll-container"></ul>
+
+```
+
+Etter at JavaScriptet har kjørt, ser HTMLen slik ut:
+
+![Koden etter at JavaScriptet har kjørt](kode1.png)
 
 
-## Spærsmål til mentor
+
+### Animasjoner
+
+Jeg har annimasjoner på search baren og i kontrollen som viser fram innhold som jeg syntes er spesielt innteresant. Favorite og watch later knappene på watch.html skifter også farge når de blir klikket på. Jeg har også puttet inn animasjoner så når du klikker på like, dislike eller favorite knappene.
+
+
+
+
+## Hvordan jeg har jobbet med prosjektet
+
+Jeg tror de fleste av brukerne til Ninjaflix er ungdommer som vil bruke appen på en mobil. Derfor designet jeg den for mobil først og har ikke rukket å lage en pc versjon ennå, men appen er responsiv og vil tilpasse seg alle mobilstørrelser. For at pc versjonen skal bli bra må jeg lage noen helt nye kontroller som har knapper som kan styres med mus for de stedene jeg lar brukeren bruke touch og slide på mobil.
+
+Jeg har blitt bedre på JavaScript og HTML. Jeg har lært noen nye teknikker for å laste innhold fra en database. Jeg har lært meg å bruke nye verktøy som Figma og GitHub. Jeg har lært hvordan man legger ting ut på nett med Domeneshop og Azure. 
+
+Det har vert nyttig å skrive logg. Jeg har blitt bedre på å spørre og ta imot hjelp, men har fortsatt sittet mye fast og trengt en del hjelp med prosjektstyring for å holde meg i gang. Jeg syntes store prosjekter er ganske vanskelige fortsatt. Kansje jeg skal sammarbeide med noen på neste store oppgave? 
+
+### Planlagte forbedringer etter fagsamtale
+
+1. PC versjon
+1. Fikse søke funksjonen
+1. Gjøre fonter og titler enklere å lese
+1. UU: ha alt tekster på alle elementer
+
+
+## Spørsmål til mentor
+
 - Hvordan levere figma prosjektet? Ta screenshots og URL i rapporten?
 - Spør: Ludvik om nettverk
 
+## Vurderingskriterier
+
+- [x] Satt personlige læringsmål
+- [x] Planlagt prosjektet
+- [x] Dokumentert hvordan du jobbet med prosjektet
+- [x] Brukt passende verktøy
+- [x] Forklart valg av verktøy
+- [-] Brukt tilbakemeldinger for å forbedre arbeidet
+- [x] Gjennomført brukertesting
+- [x] Rapportert brukertesting
+- [x] Bruker farger, grafikk og fotografi på en god måte
+- [x] Bruker Internett og AI
+
+### Funksjonelle krav
+
+- [x] Passet på filstørrelser
+- [x] Valgt riktige filformater
+- [-] Brukt nettverk for å gjøre prosjektet tilgjengelig
+- [x] Ryddig og kommentert kode
+- [ ] Universell utforming (WCAG2 og UU tilsynet)
+- [x] Bruker animasjoner
+- [x] Bruker fonter
+
+### Ikke funksjonelle krav
+
+- [x] Fokusert på brukervennlighet
+- [x] Tilpasset målgruppen og budskapet
+- [x] Fulgt lover og regler, tenkt på hva som er rett og galt
 
 ## Logg
 ### Uke 15
@@ -198,15 +277,15 @@ I restarted my task because I had no motivation for the helping website for Kube
 | Thursday | Brukertesting |
 | Friday   |  |
 
-### Uke 19
+### Uke 22
 | Day      | Log                                      |
 |----------|------------------------------------------|
 | Saturday |  |
 | Sunday   |  |
 | Monday   |  |
-| Tuesday  |  |
-| Wednesday|  |
-| Thursday |  |
+| Tuesday  | Gjennomgikk koden |
+| Wednesday| Skriver logg, og rapport til fagsamtale |
+| Thursday | Fagsamtale |
 | Friday   |  |
 
 
