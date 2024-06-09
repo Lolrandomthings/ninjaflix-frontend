@@ -88,6 +88,49 @@ input {
     margin-top: 10px;
 } */
 
+#search-dropdown {
+    background: #2B2B2B;
+    position: absolute;
+    z-index: 1;
+    width: 190px;
+    top: 100%;
+    right: 0;  
+}
+
+#search-dropdown ul {
+    list-style-type: none;
+    padding: 0;
+    position: relative;
+    padding-left: 8px;
+}
+
+#search-dropdown ul li {
+  padding: 0px;
+  height: 50px;
+  margin-bottom: 15px;
+}
+
+#search-dropdown ul li a {
+  display: flex;
+  align-items: center;
+}
+
+#search-dropdown ul li a img {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+#search-dropdown ul li a span {
+   font-size: smaller;
+   display: inline-block;
+   max-width: 100px;
+   overflow: hidden;
+   white-space: nowrap;
+   text-overflow: ellipsis;
+  }
+
 /* index.html */
 
 .video-list {
@@ -114,13 +157,20 @@ input {
    position: relative;
    max-width: 100%;
    width: 100%;
-   height: 230px;
+   height: 600px;
+}
+
+@media (max-width: 600px) {
+  #feature-container {
+      height: 250px;
+  }
 }
 
 #feature-new {
    max-width: 100%;
    width: 100%;
-   height: 200px;
+   height: 100%;
+   
 }
 
 #feature-new img {
@@ -129,7 +179,7 @@ input {
     object-fit: cover;
     display: none;
     width: 100%;
-    height: 200px;
+    height: 100%;
     background-size: cover;
     background-position: center
 }
@@ -139,19 +189,24 @@ input {
     top: -10;
     left: 50%;
     width: 50%;
-    height: 200px;
-    margin-bottom: 50%;
+    height: 100%;
     background: rgb(0, 0, 0, 0.3); 
     backdrop-filter: blur(10px);  
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .overlay-text h4 {
-    position: relative;
-    font-size: -10em;
     text-align: center;
-    margin-top: 0px;
-    margin-bottom: 50%; 
-    margin-left: 5px;
+    margin: 0;
+    font-size: 2em;
+}
+
+@media (max-width: 600px) {
+  .overlay-text h4 {
+    font-size: 1em;
+}
 }
 
 /* Slideshow container */
@@ -165,7 +220,7 @@ input {
   .mySlides {
     display: none;
     width: 100%;
-    height: 200px;
+    height: 100%;
     background-size: cover;
     background-position: center;
   }
@@ -257,38 +312,61 @@ input {
 
 /* horisontal scroll list */
 
-.scroll-container {
-  display: flex;
-  overflow-x: scroll;
-  overflow-y: hidden;
-  padding: 0px;
-  margin-left: 0px;
-  margin-right: 0px;
-  margin-top: 20px;
-  width: 100%;
-  height: 150px;
+@media (pointer: coarse) {
+  .scroll-container {
+    display: flex;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    padding: 0px;
+    margin-left: 0px;
+    margin-right: 0px;
+    margin-top: 20px;
+    padding: 0;
+    width: 100%;
+    height: 225px;
+  }
+}
+
+@media (pointer: fine) {
+  .scroll-container {
+    max-width: 800px;
+    padding: 0px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    padding: 0;
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+
+    
+  }
 }
 
 .scroll-container li {
   display: inline-block;
   position: relative;
   width: 100px;
-  height: 150px;
+  height: 225px;
   min-width: 100px;
+  min-height: 225px;
   margin-left: 10px;
   background-size: cover;
 }
 
-.scroll-container li span {
-  display: flex;
-  position: absolute;
-  top: 0%;
-  bottom: 10%;
-  text-align: center;
-  text-overflow: ellipsis;
-  white-space: normal;
-  overflow: hidden;
+.scroll-container li img {
+  width: 100%;
+  height: 150px;
+  object-fit: cover;
+}
+
+.scroll-container li p {
   border: 0cm;
+  font-size: 0.9em;
+  height: 75px;
+  margin-top: 0;
+  width: 100px;
+  min-height: 75px;
 }
 
 

@@ -208,7 +208,7 @@ Det har vert nyttig å skrive logg. Jeg har blitt bedre på å spørre og ta imo
 - [x] Dokumentert hvordan du jobbet med prosjektet
 - [x] Brukt passende verktøy
 - [x] Forklart valg av verktøy
-- [-] Brukt tilbakemeldinger for å forbedre arbeidet
+- [x] Brukt tilbakemeldinger for å forbedre arbeidet
 - [x] Gjennomført brukertesting
 - [x] Rapportert brukertesting
 - [x] Bruker farger, grafikk og fotografi på en god måte
@@ -218,9 +218,9 @@ Det har vert nyttig å skrive logg. Jeg har blitt bedre på å spørre og ta imo
 
 - [x] Passet på filstørrelser
 - [x] Valgt riktige filformater
-- [-] Brukt nettverk for å gjøre prosjektet tilgjengelig
+- [x] Brukt nettverk for å gjøre prosjektet tilgjengelig
 - [x] Ryddig og kommentert kode
-- [ ] Universell utforming (WCAG2 og UU tilsynet)
+- [x] Universell utforming (WCAG2 og UU tilsynet)
 - [x] Bruker animasjoner
 - [x] Bruker fonter
 
@@ -290,11 +290,11 @@ I restarted my task because I had no motivation for the helping website for Kube
 
 
 
-### Uke ..
+### Uke 24
 | Day      | Log                                      |
 |----------|------------------------------------------|
-| Saturday |  |
-| Sunday   |  |
+| Saturday | Alt tekster og aria regions og labels og testet med Microsoft narrator |
+| Sunday   | Flyttet tekst under thumbnail, tilpasset til pc og laget linker på features. Implementerte søk. |
 | Monday   |  |
 | Tuesday  |  |
 | Wednesday|  |

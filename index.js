@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", function() {
             featuredVideos = videos.filter(video => video.featured === true);
             addVideosToFeaturedSlides(featuredVideos);
             showSlides(slideIndex);
-            setInterval(autoSlide, 5000);
+            setInterval(autoSlide, 12000);
         });
 
         listBookmarkedVideos().then(function(videos) {
@@ -34,16 +34,27 @@ addVideosToScrollContainer = function(videos, list) {
     var video = videos[i];
 
     var videoItem = document.createElement('li');
-    videoItem.style.backgroundImage = `url(${baseUrl}thumbnails/${video.id}.jpg)`;
-    videoItem.onclick = (function(video) {
-      return function() {
-        window.location.href = 'watch.html?id=' + video.id;
-      };
-    })(video);
 
-    var videoTitle = document.createElement('span');
-    videoTitle.innerText = video.title;
-    videoItem.append(videoTitle);
+    videoItem.className = 'video-list-item';
+
+    var videoLink = document.createElement('a');
+    videoLink.href = 'watch.html?id=' + video.id;
+    videoLink.ariaLabel = video.title;
+    videoItem.append(videoLink);
+
+    var videoThumbnail = document.createElement('img');
+    videoThumbnail.src = `${baseUrl}thumbnails/${video.id}.jpg`;
+    videoLink.append(videoThumbnail);
+
+    var title = video.title;
+    if (title.length > 20) {
+      title = title.substring(0, 20) + '...';
+    }
+
+    var videoTitle = document.createElement('p');
+    videoTitle.innerText = title;
+    videoTitle.title = video.title;
+    videoLink.append(videoTitle);
 
     list.append(videoItem);
   }}
@@ -61,6 +72,11 @@ addVideosToFeaturedSlides = function(videos) {
     if ( i == 0 )
       slide.className += ' active';
     slide.style.backgroundImage = `url(${baseUrl}thumbnails/${video.id}.jpg)`;
+    slide.onclick = (function(video) {
+      return function() {
+        window.location.href = 'watch.html?id=' + video.id;
+      }
+    })(video);
 
     var slideTextContainer = document.createElement('div');
     slideTextContainer.className = 'overlay-text';
